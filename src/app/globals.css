@@ -1,26 +1,20 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+.range {
+  --range-shdw: #15803d;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.checkbox:checked,
+.checkbox[checked="true"],
+.checkbox[aria-checked="true"] {
+  background-repeat: no-repeat;
+  animation: checkmark var(--animation-input, 0.2s) ease-out;
+  background-color: #15803d;
+  background-image: linear-gradient(-45deg, transparent 65%, #15803d 65.99%),
+    linear-gradient(45deg, transparent 75%, #15803d 75.99%),
+    linear-gradient(-45deg, #15803d 40%, transparent 40.99%),
+    linear-gradient(45deg, #15803d 30%, white 30.99%, white 40%, transparent 40.99%),
+    linear-gradient(-45deg, white 50%, #15803d 50.99%);
 }

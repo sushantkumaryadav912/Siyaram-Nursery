@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SUPABASE_URL")
+}
+
+model Product {
+  id          String       @id @default(uuid())
+  slug        String       @unique
+  title       String
+  mainImage   String
+  price       Int          @default(0)
+  rating      Int          @default(0)
+  description String
+  inStock     Int          @default(1)
+  categoryId  String
+  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orders      OrderProduct[]
+  Wishlist    Wishlist[]
+  images      Image[]
+}
+
+model Image {
+  imageID   String  @id @default(uuid())
+  productID String
+  image     String
+  product   Product @relation(fields: [productID], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id          String      @id @default(uuid())
+  email       String      @unique
+  password    String?
+  role        String?     @default("user")
+  Wishlist    Wishlist[]
+  orders      Order[]
+  resetTokens ResetToken[]
+}
+
+model Order {
+  id          String       @id @default(uuid())
+  name        String
+  lastname    String
+  phone       String
+  email       String
+  company     String
+  adress      String
+  apartment   String
+  postalCode  String
+  dateTime    DateTime?    @default(now())
+  status      String
+  city        String
+  country     String
+  orderNotice String?
+  total       Int
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products    OrderProduct[]
+}
+
+model OrderProduct {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity  Int
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  name     String    @unique
+  products Product[]
+}
+
+model Wishlist {
+  id        String  @id @default(uuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
