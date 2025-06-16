@@ -1,14 +1,23 @@
 import React from "react";
+import { FaCheck } from "react-icons/fa6";
+import { FaXmark } from "react-icons/fa6";
 
-const StockAvailabillity = ({ inStock }) => {
+const StockAvailability = ({ product }) => {
   return (
-    <p className="text-xl">
-      Availability:{" "}
-      <span className="text-lg font-normal">
-        {inStock ? "In stock" : "Out of stock"}
-      </span>
-    </p>
+    <div className="flex items-center gap-x-2 max-[500px]:justify-center">
+      {product?.inStock ? (
+        <>
+          <FaCheck className="text-green-500 text-2xl" />
+          <p className="text-lg">In stock</p>
+        </>
+      ) : (
+        <>
+          <FaXmark className="text-red-500 text-2xl" />
+          <p className="text-lg">Out of stock</p>
+        </>
+      )}
+    </div>
   );
 };
 
-export default StockAvailabillity;
+export default StockAvailability;

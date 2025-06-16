@@ -1,15 +1,19 @@
-import React from "react";
+"use client";
+import React, { useState } from 'react'
 
-const Range = () => {
+const Range = ({ min, max, priceValue, setInputCategory }) => {
+    const [ currentRangeValue, setCurrentRangeValue ] = useState(priceValue);
+
+    const handleRange = (e) => {
+        setCurrentRangeValue(parseInt(e.target.value));
+    }
+
   return (
-    <div className="flex flex-col gap-y-1">
-      <h3 className="text-xl mb-2">Price</h3>
-      <div>
-        <input type="range" min={0} max={100} value="50" className="range" />
-        <span>Max price: $50</span>
-      </div>
+    <div>
+        <input type="range" min={min} max={max} value={priceValue} className="range range-warning" />
+        <span>{ `Max price: $${currentRangeValue}` }</span>
     </div>
-  );
-};
+  )
+}
 
-export default Range;
+export default Range

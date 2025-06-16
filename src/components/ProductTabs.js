@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import RatingPercentElement from "./RatingPercentElement";
 import SingleReview from "./SingleReview";
-import { formatCategoryName } from "@/utils/categoryFormating";
+import { formatCategoryName } from "@/utils/categoryFormatting";
 
 const ProductTabs = ({ product }) => {
   const [currentProductTab, setCurrentProductTab] = useState(0);
@@ -32,11 +32,8 @@ const ProductTabs = ({ product }) => {
       </div>
       <div className="pt-5">
         {currentProductTab === 0 && (
-          <p className="text-lg max-sm:text-base max-sm:text-sm">
-            {product?.description}
-          </p>
+          <p className="text-lg max-sm:text-base max-sm:text-sm">{product?.description}</p>
         )}
-
         {currentProductTab === 1 && (
           <div className="overflow-x-auto">
             <table className="table text-xl text-center max-[500px]:text-base">

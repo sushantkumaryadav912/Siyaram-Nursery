@@ -44,13 +44,11 @@ const AdminOrders = () => {
                       <input type="checkbox" className="checkbox" />
                     </label>
                   </th>
-
                   <td>
                     <div>
                       <p className="font-bold">#{order?.id}</p>
                     </div>
                   </td>
-
                   <td>
                     <div className="flex items-center gap-5">
                       <div>
@@ -59,17 +57,14 @@ const AdminOrders = () => {
                       </div>
                     </div>
                   </td>
-
                   <td>
                     <span className="badge badge-success text-white badge-sm">
                       {order?.status}
                     </span>
                   </td>
-
                   <td>
                     <p>${order?.total}</p>
                   </td>
-
                   <td>{ new Date(Date.parse(order?.dateTime)).toDateString() }</td>
                   <th>
                     <Link

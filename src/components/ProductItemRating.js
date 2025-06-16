@@ -1,6 +1,6 @@
 "use client";
 import { nanoid } from "nanoid";
-import React, { useState } from "react";
+import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { AiOutlineStar } from "react-icons/ai";
 
@@ -18,16 +18,12 @@ const ProductItemRating = ({ productRating }) => {
   }
   return (
     <div className="flex">
-        { rating && rating?.map(singleRating => {
-return (
-    <div  key={nanoid()}>
-    {singleRating === "full star" && <AiFillStar className="text-yellow-400 text-xl" />}
-    {singleRating === "empty star" && <AiOutlineStar className="text-yellow-400 text-xl" />}
-    </div>
-    
-)
-        }) }
-
+        { rating && rating?.map(singleRating => (
+          <div key={nanoid()}>
+            {singleRating === "full star" && <AiFillStar className="text-yellow-400 text-xl" />}
+            {singleRating === "empty star" && <AiOutlineStar className="text-yellow-400 text-xl" />}
+          </div>
+        )) }
     </div>
   );
 };

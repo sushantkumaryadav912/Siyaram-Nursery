@@ -8,9 +8,7 @@ import { usePaginationStore } from "@/app/_zustand/paginationStore";
 const Filters = () => {
   const pathname = usePathname();
   const { replace } = useRouter();
-
   const { page } = usePaginationStore();
-
   const [inputCategory, setInputCategory] = useState({
     inStock: { text: "instock", isChecked: true },
     outOfStock: { text: "outofstock", isChecked: true },
@@ -55,7 +53,6 @@ const Filters = () => {
             <span className="label-text text-lg ml-2 text-black">In stock</span>
           </label>
         </div>
-
         <div className="form-control">
           <label className="cursor-pointer flex items-center">
             <input
@@ -72,13 +69,10 @@ const Filters = () => {
               }
               className="checkbox"
             />
-            <span className="label-text text-lg ml-2 text-black">
-              Out of stock
-            </span>
+            <span className="label-text text-lg ml-2 text-black">Out of stock</span>
           </label>
         </div>
       </div>
-
       <div className="divider"></div>
       <div className="flex flex-col gap-y-1">
         <h3 className="text-xl mb-2">Price</h3>
@@ -103,9 +97,7 @@ const Filters = () => {
           <span>{`Max price: $${inputCategory.priceFilter.value}`}</span>
         </div>
       </div>
-
       <div className="divider"></div>
-
       <div>
         <h3 className="text-xl mb-2">Minimum Rating:</h3>
         <input

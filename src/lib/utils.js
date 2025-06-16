@@ -1,109 +1,70 @@
 export const categoryMenuList = [
   {
     id: 1,
-    title: "Smart Phones",
-    src: "/smart phone icon.png",
-    href: "/shop/smart-phones"
+    title: "Indoor Plants",
+    src: "/indoor-plant-icon.png",
+    href: "/shop/indoor-plants"
   },
   {
     id: 2,
-    title: "Tablets",
-    src: "/tablet icon.png",
-    href: "/shop/tablets"
+    title: "Outdoor Plants",
+    src: "/outdoor-plant-icon.png",
+    href: "/shop/outdoor-plants"
   },
   {
     id: 3,
-    title: "Mouses",
-    src: "/mouse icon.png",
-    href: "/shop/mouses"
+    title: "Gardening Tools",
+    src: "/gardening-tool-icon.png",
+    href: "/shop/gardening-tools"
   },
   {
     id: 4,
-    title: "Cameras",
-    src: "/camera icon.png",
-    href: "/shop/cameras"
+    title: "Seeds & Bulbs",
+    src: "/seeds-icon.png",
+    href: "/shop/seeds-bulbs"
   },
   {
     id: 5,
-    title: "Smart Watches",
-    src: "/smart watch.png",
-    href: "/shop/watches"
-  },
-  {
-    id: 6,
-    title: "Laptops",
-    src: "/laptop icon.png",
-    href: "/shop/laptops"
-  },
-  {
-    id: 7,
-    title: "PCs",
-    src: "/pc icon.png",
-    href: "/shop/computers"
-  },
-  {
-    id: 8,
-    title: "Printers",
-    src: "/printers icon.png",
-    href: "/shop/printers"
-  },
-  {
-    id: 9,
-    title: "Earbuds",
-    src: "/ear buds icon.png",
-    href: "/shop/earbuds"
-  },
-  {
-    id: 10,
-    title: "Head Phones",
-    src: "/headphone icon.png",
-    href: "/shop/headphones"
-  },
+    title: "Pots & Planters",
+    src: "/pot-icon.png",
+    href: "/shop/pots-planters"
+  }
 ];
 
 export const incentives = [
   {
     name: "Free Shipping",
-    description:
-      "Our shipping is completely free and that is completely good for our customers.",
-    imageSrc: "/shipping icon.png",
+    description: "Enjoy free shipping on all orders to nurture your garden effortlessly.",
+    imageSrc: "/shipping-icon.png",
   },
   {
-    name: "24/7 Customer Support",
-    description:
-      "Our support is working all day and night to answer any question you have.",
-    imageSrc: "/support icon.png",
+    name: "Plant Care Support",
+    description: "Get expert advice to keep your plants thriving.",
+    imageSrc: "/plant-care-icon.png",
   },
   {
-    name: "Fast Shopping Cart",
-    description:
-      "We have super fast shopping experience and you will enjoy it.",
-    imageSrc: "/fast shopping icon.png",
-  },
+    name: "Eco-Friendly Packaging",
+    description: "We use sustainable materials to protect your plants and the planet.",
+    imageSrc: "/eco-icon.png",
+  }
 ];
 
 export const navigation = {
   sale: [
-    { name: "Discounts", href: "#" },
-    { name: "News", href: "#" },
-    { name: "Register Discounts", href: "#" },
+    { name: "Seasonal Discounts", href: "/shop/sale" },
+    { name: "Clearance Plants", href: "/shop/clearance" }
   ],
   about: [
-    { name: "About Singitronic", href: "#" },
-    { name: "Work With Us", href: "#" },
-    { name: "Company Profile", href: "#" },
+    { name: "About Siyaram Nursery", href: "/about" },
+    { name: "Our Mission", href: "/mission" }
   ],
   buy: [
-    { name: "Singitronic Loyalty Card", href: "#" },
-    { name: "Terms Of Use", href: "#" },
-    { name: "Privacy Policy", href: "#" },
-    { name: "Complaints", href: "#" },
-    { name: "Partners", href: "#" },
+    { name: "Gift Cards", href: "/gift-cards" },
+    { name: "Bulk Orders", href: "/bulk-orders" }
   ],
   help: [
-    { name: "Contact", href: "#" },
-    { name: "How to Buy at Singitronic", href: "#" },
-    { name: "FAQ", href: "#" },
+    { name: "Contact Us", href: "/contact" },
+    { name: "Plant Care FAQs", href: "/faqs" }
   ],
 };
 

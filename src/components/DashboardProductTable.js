@@ -10,12 +10,8 @@ const DashboardProductTable = () => {
 
   useEffect(() => {
     fetch("http://localhost:3001/api/products?mode=admin", {cache: "no-store"})
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setProducts(data);
-      });
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
   }, []);
 
   return (
@@ -33,7 +29,6 @@ const DashboardProductTable = () => {
           />
         </Link>
       </div>
-
       <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[80vh]">
         <table className="table table-md table-pin-cols">
           <thead>
@@ -58,7 +53,6 @@ const DashboardProductTable = () => {
                       <input type="checkbox" className="checkbox" />
                     </label>
                   </th>
-
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
@@ -74,20 +68,16 @@ const DashboardProductTable = () => {
                       </div>
                       <div>
                         <div className="font-bold">{product?.title}</div>
-                        <div className="text-sm opacity-50">
-                          {product?.manufacturer}
-                        </div>
+                        <div className="text-sm opacity-50">{product?.manufacturer}</div>
                       </div>
                     </div>
                   </td>
-
                   <td>
-                    { product?.inStock ? (<span className="badge badge-success text-white badge-sm">
-                      In stock
-                    </span>) : (<span className="badge badge-error text-white badge-sm">
-                      Out of stock
-                    </span>) }
-                    
+                    { product?.inStock ? (
+                      <span className="badge badge-success text-white badge-sm">In stock</span>
+                    ) : (
+                      <span className="badge badge-error text-white badge-sm">Out of stock</span>
+                    ) }
                   </td>
                   <td>${product?.price}</td>
                   <th>

@@ -5,7 +5,6 @@ import { FaRegUser } from "react-icons/fa6";
 import { FaGear } from "react-icons/fa6";
 import { FaBagShopping } from "react-icons/fa6";
 import { MdCategory } from "react-icons/md";
-
 import Link from "next/link";
 
 const DashboardSidebar = () => {

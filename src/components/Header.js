@@ -6,7 +6,6 @@ import Image from "next/image";
 import SearchInput from "./SearchInput";
 import Link from "next/link";
 import { FaBell } from "react-icons/fa6";
-
 import CartElement from "./CartElement";
 import HeartElement from "./HeartElement";
 import { signOut, useSession } from "next-auth/react";
@@ -29,22 +28,24 @@ const Header = () => {
     });
     const wishlist = await response.json();
     const productArray = [];
-    
-    wishlist.map((item) => productArray.push({id: item?.product?.id, title: item?.product?.title, price: item?.product?.price, image: item?.product?.mainImage, slug: item?.product?.slug, stockAvailabillity: item?.product?.inStock}));
-    
+    wishlist.map((item) => productArray.push({
+      id: item?.product?.id,
+      title: item?.product?.title,
+      price: item?.product?.price,
+      image: item?.product?.mainImage,
+      slug: item?.product?.slug,
+      stockAvailabillity: item?.product?.inStock
+    }));
     setWishlist(productArray);
   };
 
   const getUserByEmail = async () => {
     if (session?.user?.email) {
-      
       fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
-        .then((data) => {
-          getWishlistByUserId(data?.id);
-        });
+        .then((data) => getWishlistByUserId(data?.id));
     }
   };
 
@@ -68,7 +69,7 @@ const Header = () => {
         </div>
       )}
       {pathname.startsWith("/admin") === true && (
-        <div className="flex justify-between h-32 bg-white items-center px-16 max-[1320px]:px-10  max-w-screen-2xl mx-auto max-[400px]:px-5">
+        <div className="flex justify-between h-32 bg-white items-center px-16 max-[1320px]:px-10 max-w-screen-2xl mx-auto max-[400px]:px-5">
           <Link href="/">
             <Image
               src="/logo v1.png"

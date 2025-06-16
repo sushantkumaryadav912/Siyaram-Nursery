@@ -4,7 +4,7 @@ import React from "react";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 
-const QuantityInput = ({ quantityCount, setQuantityCount }) => {
+const QuantityInput = ({quantityCount, setQuantityCount}) => {
   const handleQuantityChange = (actionName) => {
     if (actionName === "plus") {
       setQuantityCount(quantityCount + 1);
@@ -16,7 +16,6 @@ const QuantityInput = ({ quantityCount, setQuantityCount }) => {
   return (
     <div className="flex items-center gap-x-4 max-[500px]:justify-center">
       <p className="text-xl">Quantity: </p>
-
       <div className="flex items-center gap-1">
         <button
           type="button"
@@ -25,7 +24,6 @@ const QuantityInput = ({ quantityCount, setQuantityCount }) => {
         >
           <FaMinus />
         </button>
-
         <input
           type="number"
           id="Quantity"
@@ -33,7 +31,6 @@ const QuantityInput = ({ quantityCount, setQuantityCount }) => {
           value={quantityCount}
           className="h-10 w-24 rounded border-gray-200 sm:text-sm"
         />
-
         <button
           type="button"
           className="size-10 leading-10 text-gray-600 transition hover:opacity-75 flex justify-center items-center border"

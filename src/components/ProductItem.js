@@ -39,7 +39,6 @@ const ProductItem = ({ product, color }) => {
       >
         ${product.price}
       </p>
-
       <ProductItemRating productRating={product?.rating} />
       <Link
         href={`/product/${product?.slug}`}
