@@ -1,5 +1,5 @@
 import './globals.css';
-import { Navbar, Footer } from '@/components';
+import { Header, Footer } from '@/components';
 import SessionProvider from '@/utils/SessionProvider';
 import Providers from '@/Providers';
 import { getServerSession } from 'next-auth';
@@ -10,7 +10,7 @@ export default async function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body className="font-sans">
         <SessionProvider session={session}>
-          <Navbar />
+          <Header />
           <Providers>{children}</Providers>
           <Footer />
         </SessionProvider>

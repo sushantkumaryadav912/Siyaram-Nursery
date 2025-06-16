@@ -1,3 +1,5 @@
+'use client';
+
 import { CategoryMenu, Hero, IntroducingSection, ProductsSection } from '@/components';
 import { motion } from 'framer-motion';
 

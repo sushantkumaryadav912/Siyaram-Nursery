@@ -1,3 +1,4 @@
+// src/components/WishItem.js
 "use client";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +7,7 @@ import { FaXmark } from "react-icons/fa6";
 import { useWishlistStore } from "@/app/_zustand/wishlistStore";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
+import { supabase } from "@/lib/supabaseClient";
 
 const WishItem = ({ product }) => {
   const { data: session } = useSession();
@@ -13,22 +15,32 @@ const WishItem = ({ product }) => {
 
   const removeFromWishlistFun = async () => {
     if (session?.user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
-        cache: "no-store",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          return fetch(
-            `http://localhost:3001/api/wishlist/${data?.id}/${product?.id}`,
-            {
-              method: "DELETE",
-            }
-          );
-        })
-        .then((response) => {
-          removeFromWishlist(product?.id);
-          toast.success("Product removed from the wishlist");
-        });
+      // Fetch user by email
+      const { data: user, error: userError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("email", session.user.email)
+        .single();
+
+      if (userError || !user) {
+        toast.error("Error fetching user");
+        return;
+      }
+
+      // Delete wishlist item
+      const { error } = await supabase
+        .from("wishlist")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("product_id", product.id);
+
+      if (error) {
+        toast.error("Error removing from wishlist");
+        return;
+      }
+
+      removeFromWishlist(product.id);
+      toast.success("Product removed from the wishlist");
     }
   };
 
