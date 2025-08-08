@@ -13,6 +13,10 @@ const orderProductRouter = require("./routes/customer_order_product");
 const wishlistRouter = require("./routes/wishlist");
 
 const app = express();
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
+
 
 app.use(express.json());
 app.use(
@@ -23,6 +27,10 @@ app.use(
   })
 );
 app.use(fileUpload());
+app.use(helmet());
+app.use(xss());
+app.use(cors());
+app.use(express.json());
 
 app.use("/api/products", productsRouter);
 app.use("/api/categories", categoryRouter);
@@ -34,6 +42,9 @@ app.use("/api/orders", orderRouter);
 app.use("/api/order-product", orderProductRouter);
 app.use("/api/slugs", slugRouter);
 app.use("/api/wishlist", wishlistRouter);
+
+const limiter = rateLimit({ windowMs: 15*60*1000, max: 200 });
+app.use(limiter);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
