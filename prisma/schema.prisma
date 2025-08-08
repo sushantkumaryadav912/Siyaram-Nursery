@@ -1,4 +1,3 @@
-// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,88 +7,131 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id          String       @id @default(uuid())
-  slug        String       @unique
-  title       String
-  mainImage   String
-  price       Float        @default(0.0)
-  rating      Float        @default(0.0)
-  description String
-  inStock     Int          @default(1)
-  categoryId  String
-  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  orders      OrderProduct[]
-  Wishlist    Wishlist[]
-  images      Image[]
-}
-
-model Image {
-  imageID   String  @id @default(uuid())
-  productID String
-  image     String
-  product   Product @relation(fields: [productID], references: [id], onDelete: Cascade)
-}
-
 model User {
-  id          String      @id @default(uuid())
-  email       String      @unique
-  password    String?
-  role        String?     @default("user")
-  Wishlist    Wishlist[]
-  orders      Order[]
-  resetTokens ResetToken[]
+  id        String     @id @default(cuid())
+  name      String
+  email     String     @unique
+  password  String
+  phone     String?    @unique
+  role      Role       @default(CUSTOMER)
+  addresses Address[]
+  orders    Order[]
+  cartItems CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
-model Order {
-  id          String       @id @default(uuid())
-  name        String
-  lastname    String
-  phone       String
-  email       String
-  company     String
-  adress      String
-  apartment   String
-  postalCode  String
-  dateTime    DateTime?    @default(now())
-  status      String
-  city        String
-  country     String
-  orderNotice String?
-  total       Int
-  userId      String
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  products    OrderProduct[]
-}
-
-model OrderProduct {
-  id        String  @id @default(uuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  quantity  Int
+model Address {
+  id       String @id @default(cuid())
+  fullName String
+  street   String
+  city     String
+  state    String
+  zipCode  String
+  country  String
+  phone    String
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  order    Order?
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  name     String    @unique
-  products Product[]
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
 }
 
-model Wishlist {
-  id        String  @id @default(uuid())
+model Product {
+  id          String         @id @default(cuid())
+  name        String
+  slug        String         @unique
+  description String?
+  price       Decimal        @db.Decimal(10, 2)
+  stock       Int            @default(0)
+  category    Category       @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  images      ProductImage[]
+  orderItems  OrderItem[]
+  cartItems   CartItem[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  product   Product @relation(fields: [productId], references: [id])
   productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model ResetToken {
-  id        String   @id @default(uuid())
-  token     String   @unique
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+  user      User     @relation(fields: [userId], references: [id])
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
   createdAt DateTime @default(now())
-  expiresAt DateTime
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+  address     Address     @relation(fields: [addressId], references: [id])
+  addressId   String      @unique
+  status      OrderStatus @default(PENDING)
+  totalAmount Decimal     @db.Decimal(10, 2)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       OrderItem[]
+  payment     Payment?
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  price     Decimal @db.Decimal(10, 2)
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  order         Order         @relation(fields: [orderId], references: [id])
+  orderId       String        @unique
+  amount        Decimal       @db.Decimal(10, 2)
+  method        PaymentMethod
+  status        PaymentStatus @default(PENDING)
+  transactionId String?       @unique
+  createdAt     DateTime      @default(now())
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  COD
+  CARD
+  UPI
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }

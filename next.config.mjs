@@ -9,6 +9,11 @@ const nextConfig = {
       },
     ],
   },
+  images: {
+    domains: ['<your-project>.supabase.co'],
+    formats: ['image/avif','image/webp'],
+  },
+  experimental: { appDir: true }
 };
 
 export default nextConfig;
